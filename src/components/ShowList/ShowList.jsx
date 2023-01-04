@@ -1,16 +1,20 @@
 import listStyle from "../ShowList/style.module.css";
 import { SMALL_IMG_COVER_BASE_URL } from "../../config";
 
-export function ShowList(props) {
+export function ShowList({ tvShow, onClick }) {
+  const onClick_ = () => {
+    onClick(tvShow);
+  };
+
   return (
     <>
-      <div className={listStyle.container}>
+      <div onClick={onClick_} className={listStyle.container}>
         <img
-          alt={props.name}
-          src={SMALL_IMG_COVER_BASE_URL + props.img}
+          alt={tvShow.name}
+          src={SMALL_IMG_COVER_BASE_URL + tvShow.backdrop_path}
           className={listStyle.img}
         />
-        <div className={listStyle.title}>{props.name}</div>
+        <div className={listStyle.title}>{tvShow.name}</div>
       </div>
     </>
   );

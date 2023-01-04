@@ -47,7 +47,20 @@ export function App() {
         <ShowDetails showDetail={currentTVShow} />
       </div>
       <div className={s.recommended_tv_shows}>
-        <ShowList name={currentTVShow.name} img={currentTVShow.backdrop_path} />
+        <>
+          <ShowList
+            tvShow={currentTVShow}
+            onClick={(tvShow) => {
+              console.log("i have been clicked", tvShow);
+            }}
+          />
+          <ShowList
+            tvShow={currentTVShow}
+            onClick={(tvShow) => {
+              console.log("i have been clicked", tvShow);
+            }}
+          />
+        </>
       </div>
     </div>
   );
