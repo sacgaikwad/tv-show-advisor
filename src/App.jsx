@@ -5,6 +5,7 @@ import { BACKDROP_BASE_URL } from "../src/config.js";
 import { ShowDetails } from "./components/ShowDetails/ShowDetails";
 import { Logo } from "./components/Logo/Logo";
 import LogoImage from "./assets/images/logo.png";
+import { ShowList } from "./components/ShowList/ShowList";
 
 export function App() {
   const [currentTVShow, setCurrentTVShow] = useState("");
@@ -45,7 +46,12 @@ export function App() {
       <div className={s.tv_show_detail}>
         <ShowDetails showDetail={currentTVShow} />
       </div>
-      <div className={s.recommended_tv_shows}>TV show recommended</div>
+      <div className={s.recommended_tv_shows}>
+        <ShowList
+          title={currentTVShow.name}
+          img={currentTVShow.backdrop_path}
+        />
+      </div>
     </div>
   );
 }
