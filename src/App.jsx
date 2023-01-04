@@ -47,10 +47,7 @@ export function App() {
         <ShowDetails showDetail={currentTVShow} />
       </div>
       <div className={s.recommended_tv_shows}>
-        <ShowList
-          title={currentTVShow.name}
-          img={currentTVShow.backdrop_path}
-        />
+        <ShowList name={currentTVShow.name} img={currentTVShow.backdrop_path} />
       </div>
     </div>
   );
