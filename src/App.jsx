@@ -41,10 +41,8 @@ export function App() {
     }
   }, [currentTVShow]);
 
-  //console.log(recommentationList);
-
-  function onItemClick(tvShow) {
-    console.log("i have been clicked", tvShow);
+  function updateCurrentTvShow(tvShow) {
+    setCurrentTVShow(tvShow);
   }
 
   return (
@@ -76,7 +74,10 @@ export function App() {
       <div className={s.recommended_tv_shows}>
         {recommentationList && (
           <>
-            <ShowList tvShow={recommentationList} />
+            <ShowList
+              onClickItem={updateCurrentTvShow}
+              tvShow={recommentationList}
+            />
           </>
         )}
       </div>
