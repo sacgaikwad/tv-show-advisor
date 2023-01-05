@@ -5,10 +5,13 @@ import { BACKDROP_BASE_URL } from "../src/config.js";
 import { ShowDetails } from "./components/ShowDetails/ShowDetails";
 import { Logo } from "./components/Logo/Logo";
 import LogoImage from "./assets/images/logo.png";
+
 import { ShowList } from "./components/ShowList/ShowList";
 
 export function App() {
   const [currentTVShow, setCurrentTVShow] = useState("");
+
+  let [recommentationList, setRecommentationList] = useState();
 
   async function fetchPopulars() {
     const popularTVShowList = await TvShowApi.fetchPopulars();
@@ -16,13 +19,34 @@ export function App() {
       setCurrentTVShow(popularTVShowList[0]);
     }
   }
+
+  async function fetchRecommentations(tvShowId) {
+    if (tvShowId) {
+      const recommentations = await TvShowApi.fetchRecommendations(tvShowId);
+      if (recommentations.length > 0) {
+        setRecommentationList(recommentations.slice(0, 10));
+      }
+    } else {
+      console.log("tvShowId is null");
+    }
+  }
+
   useEffect(() => {
     fetchPopulars();
   }, []);
 
+  useEffect(() => {
+    if (currentTVShow) {
+      fetchRecommentations(currentTVShow.id);
+    }
+  }, [currentTVShow]);
+
+  //console.log(recommentationList);
+
   function onItemClick(tvShow) {
     console.log("i have been clicked", tvShow);
   }
+
   return (
     <div
       className={s.main_container}
@@ -50,11 +74,11 @@ export function App() {
         <ShowDetails showDetail={currentTVShow} />
       </div>
       <div className={s.recommended_tv_shows}>
-        <>
-          <ShowList tvShow={currentTVShow} onClick={onItemClick} />
-          <ShowList tvShow={currentTVShow} onClick={onItemClick} />
-          <ShowList tvShow={currentTVShow} onClick={onItemClick} />
-        </>
+        {recommentationList && (
+          <>
+            <ShowList tvShow={recommentationList} />
+          </>
+        )}
       </div>
     </div>
   );

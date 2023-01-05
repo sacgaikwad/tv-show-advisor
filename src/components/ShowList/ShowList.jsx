@@ -1,21 +1,26 @@
-import listStyle from "../ShowList/style.module.css";
-import { SMALL_IMG_COVER_BASE_URL } from "../../config";
+import listCss from "../ShowList/style.module.css";
+import { ShowListItem } from "../ShowListItem/ShowListItem";
+export function ShowList({ tvShow }) {
+  //console.log(tvShow);
 
-export function ShowList({ tvShow, onClick }) {
-  function onTvItemClick() {
-    onClick(tvShow);
+  const shows = [];
+
+  function onShowClick() {
+    console.log("todo");
+  }
+
+  for (let show of tvShow) {
+    shows.push(
+      <span className={listCss.tv_show_item} key={show.id}>
+        <ShowListItem tvShow={show} onClick={onShowClick} />
+      </span>
+    );
   }
 
   return (
-    <>
-      <div onClick={onTvItemClick} className={listStyle.container}>
-        <img
-          alt={tvShow.name}
-          src={SMALL_IMG_COVER_BASE_URL + tvShow.backdrop_path}
-          className={listStyle.img}
-        />
-        <div className={listStyle.title}>{tvShow.name}</div>
-      </div>
-    </>
+    <div>
+      <div className={listCss.title}>You'll probably like :</div>
+      <div className={listCss.list}>{shows}</div>
+    </div>
   );
 }
