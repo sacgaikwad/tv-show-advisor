@@ -20,6 +20,9 @@ export function App() {
     fetchPopulars();
   }, []);
 
+  function onItemClick(tvShow) {
+    console.log("i have been clicked", tvShow);
+  }
   return (
     <div
       className={s.main_container}
@@ -48,18 +51,9 @@ export function App() {
       </div>
       <div className={s.recommended_tv_shows}>
         <>
-          <ShowList
-            tvShow={currentTVShow}
-            onClick={(tvShow) => {
-              console.log("i have been clicked", tvShow);
-            }}
-          />
-          <ShowList
-            tvShow={currentTVShow}
-            onClick={(tvShow) => {
-              console.log("i have been clicked", tvShow);
-            }}
-          />
+          <ShowList tvShow={currentTVShow} onClick={onItemClick} />
+          <ShowList tvShow={currentTVShow} onClick={onItemClick} />
+          <ShowList tvShow={currentTVShow} onClick={onItemClick} />
         </>
       </div>
     </div>
