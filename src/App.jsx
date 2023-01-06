@@ -7,6 +7,7 @@ import { Logo } from "./components/Logo/Logo";
 import LogoImage from "./assets/images/logo.png";
 
 import { ShowList } from "./components/ShowList/ShowList";
+import { SearchBar } from "./components/SearchBar/SearchBar";
 
 export function App() {
   const [currentTVShow, setCurrentTVShow] = useState("");
@@ -27,7 +28,19 @@ export function App() {
         setRecommentationList(recommentations.slice(0, 10));
       }
     } else {
-      console.log("tvShowId is null");
+      console.log("tvShowId is null", tvShowId);
+    }
+  }
+
+  async function fetchByTitle(title) {
+    console.log("Recieved title:", title);
+
+    let movieShow = await TvShowApi.fetchByTitle(title);
+
+    if (movieShow.length > 0) {
+      setCurrentTVShow(movieShow[0]);
+    } else {
+      console.log(movieShow);
     }
   }
 
@@ -36,9 +49,14 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    if (currentTVShow) {
-      fetchRecommentations(currentTVShow.id);
+    if (currentTVShow.length > 0) {
+      fetchRecommentations(currentTVShow[0].id);
+    } else {
+      if (currentTVShow && currentTVShow.id) {
+        fetchRecommentations(currentTVShow.id);
+      }
     }
+    console.log(currentTVShow);
   }, [currentTVShow]);
 
   function updateCurrentTvShow(tvShow) {
@@ -64,7 +82,7 @@ export function App() {
             />
           </div>
           <div className="col-md-12 col-lg-4">
-            <input style={{ width: "100%" }} type="text"></input>
+            <SearchBar onSubmit={fetchByTitle} />
           </div>
         </div>
       </div>
