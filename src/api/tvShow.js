@@ -17,6 +17,9 @@ export class TvShowApi{
 
     static async fetchByTitle(title){
         let url = `${BASE_URL}search/tv/${API_KEY}&query=${title}`;
+
+        console.log(url);
+
         let response = await axios.get(url);
         let filerResponse = response.data.results.filter((movie)=> movie.backdrop_path != null)
         return filerResponse;
